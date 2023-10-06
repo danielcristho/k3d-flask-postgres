@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - "3307:3307"
     environment:
       MYSQL_ROOT_PASSWORD: changeme
       MYSQL_DATABASE: mybb
@@ -41,7 +41,7 @@ services:
       MYSQL_PASSWORD: changeme
       TZ: "UTC"
     volumes:
-      - mysql:/var/lib/mysql
+      # - mariadb:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     logging:
       driver: syslog
