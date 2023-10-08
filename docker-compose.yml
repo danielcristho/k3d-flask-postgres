@@ -1,11 +1,11 @@
 version: "3.8"
 
 services:
-  php:
+  moodle:
     build:
-      context: ./php
+      context: ./moodle
       dockerfile: Dockerfile
-    container_name: php
+    container_name: moodle_app
     restart: unless-stopped
     ports:
       - "9000:9000"
