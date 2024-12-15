@@ -1,3 +1,9 @@
 # environment
 .env
 env
+
+# vagrant
+.vagrant/
+
+# k3s
+token

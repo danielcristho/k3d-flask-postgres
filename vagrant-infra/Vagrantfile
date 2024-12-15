@@ -1,0 +1,49 @@
+# Vagrantfile for setting up a 3-node K3s Kubernetes cluster (1 master, 3 workers)
+Vagrant.configure("2") do |config|
+  # Define a common base configuration for all VMs
+  config.vm.box = "geerlingguy/ubuntu2004"  # Ubuntu 20.04
+
+  # Define the master node
+  config.vm.define "k3s-master" do |master|
+    master.vm.hostname = "k3s-master"
+    master.vm.network "private_network", ip: "192.168.56.20"
+    master.vm.provider "virtualbox" do |vb|
+      vb.memory = "2048"
+      vb.cpus = 2
+    end
+    master.vm.provision "shell", path: "k3s-master.sh"
+  end
+
+  # Define the first worker node
+  config.vm.define "k3s-app1" do |app1|
+    app1.vm.hostname = "k3s-app1"
+    app1.vm.network "private_network", ip: "192.168.56.21"
+    app1.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    app1.vm.provision "shell", path: "k3s-worker.sh", args: ["192.168.56.20"]
+  end
+
+  # Define the second worker node
+  config.vm.define "k3s-app2" do |app2|
+    app2.vm.hostname = "k3s-app2"
+    app2.vm.network "private_network", ip: "192.168.56.22"
+    app2.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    app2.vm.provision "shell", path: "k3s-worker.sh", args: ["192.168.56.20"]
+  end
+
+  # Define the third worker node
+  config.vm.define "k3s-db" do |db|
+    db.vm.hostname = "k3s-db"
+    db.vm.network "private_network", ip: "192.168.56.23"
+    db.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    db.vm.provision "shell", path: "k3s-worker.sh", args: ["192.168.56.20"]
+  end
+end
