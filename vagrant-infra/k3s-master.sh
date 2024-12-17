@@ -12,7 +12,7 @@ echo "192.168.56.22 k3s-app2" | sudo tee -a /etc/hosts > /dev/null
 echo "192.168.56.23 k3s-db" | sudo tee -a /etc/hosts > /dev/null
 
 # Install K3s on the master node
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | sh -s - --tls-san 192.168.56.20
 
 # Make sure kubectl is set up for the vagrant user
 sudo mkdir -p /home/vagrant/.kube
