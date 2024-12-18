@@ -14,8 +14,16 @@ spec:
       labels:
         app: {{ .Release.Name }}-backend
     spec:
-      nodeSelector:
-        role: backend-db-node
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - k3s-app1
+                      - k3s-app2
       containers:
         - name: mybackend-app
           image: "{{ .Values.backend.repository }}:{{ .Values.backend.tag }}"

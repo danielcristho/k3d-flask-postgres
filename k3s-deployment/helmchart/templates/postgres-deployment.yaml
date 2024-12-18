@@ -15,7 +15,7 @@ spec:
         app: {{ .Release.Name }}-db
     spec:
       nodeSelector:
-        role: backend-db-node
+        kubernetes.io/hostname: k3s-db
       containers:
         - name: postgres
           image: {{ .Values.postgresql.image }}
