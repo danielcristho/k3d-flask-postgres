@@ -27,11 +27,11 @@ spec:
                 secretKeyRef:
                   name: postgres-secrets
                   key: PG_USER
-            - name: PG_PASSWORD
+            - name: PG_PASS
               valueFrom:
                 secretKeyRef:
-                  name: PG-secrets
-                  key: PG_PASSWORD
+                  name: postgres-secrets
+                  key: PG_PASS
             - name: PG_HOST
               value: "{{ .Values.backend.env.PG_HOST }}"
             - name: PG_PORT
@@ -39,5 +39,5 @@ spec:
             - name: PG_DB
               valueFrom:
                 secretKeyRef:
-                  name: PG-secrets
+                  name: postgres-secrets
                   key: PG_DB
