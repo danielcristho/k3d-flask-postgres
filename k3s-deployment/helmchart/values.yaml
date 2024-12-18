@@ -1,0 +1,46 @@
+replicaCount: 1
+
+backend:
+  repository: danielcristh0/flask-todo
+  tag: latest
+  env:
+    PG_HOST: "mypostgres-service"
+    PG_PORT: "5432"
+
+postgresql:
+  image: postgres:14  # Official PostgreSQL image
+
+# Define secret values for PostgreSQL credentials
+secrets:
+  postgres:
+    PG_USER: "admin"
+    PG_PASS: "dbPassword"
+    PG_DB: "todo"
+service:
+  type: NodePort
+  frontendPort: 80
+  backendPort: 5000
+  nodePort: 32000
+  backendNodePort: 32001
+  dbPort: 5432
+serviceAccount:
+  create: true          # Set to false if you don't need a ServiceAccount created
+  name: ""              # Name of the ServiceAccount (if empty, Helm will use the default name)
+  annotations: {}
+
+ingress:
+  enabled: false       # Set to true if you want to enable ingress
+  annotations: {}      # You can add any annotations required for the ingress
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []              # TLS configuration (optional)
+resources:
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+  requests:
+    memory: "128Mi"
+    cpu: "250m"

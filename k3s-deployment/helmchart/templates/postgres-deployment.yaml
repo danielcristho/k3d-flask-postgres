@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels:
+    app: {{ .Release.Name }}-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-db
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-db
+    spec:
+      nodeSelector:
+        role: backend-db-node
+      containers:
+        - name: postgres
+          image: {{ .Values.postgresql.image }}
+          ports:
+            - containerPort: {{ .Values.service.dbPort }}
+          env:
+            - name: PG_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PG_USER
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PG_PASSWORD
+            - name: PG_HOST
+              value: "{{ .Values.backend.env.PG_HOST }}"
+            - name: PG_PORT
+              value: "{{ .Values.backend.env.PG_PORT }}"
+            - name: PG_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: PG_DB
