@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-todo
+  labels:
+    app: flask-todo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-todo
+  template:
+    metadata:
+      labels:
+        app: flask-todo
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k3s-app1
+                - k3s-app2
+      containers:
+      - name: flask-todo
+        image: danielcristh0/flask-todo:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PG_USER
+          value: "admin"
+        - name: PG_PASS
+          value: "dbPassword"
+        - name: PG_DB
+          value: "todo"
+        - name: PG_HOST
+          value: "db"
+        - name: PG_PORT
+          value: "5432"
