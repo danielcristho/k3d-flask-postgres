@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: nginx-todo-config
   namespace: default
 data:
   nginx.conf: |
@@ -9,13 +9,25 @@ data:
       worker_connections 1024;
     }
     http {
-      upstream flask_app {
-        server flask-service:5000;
+      upstream flask_todo {
+        server flask-todo-service:5000;
       }
+
       server {
         listen 80;
+        server_name localhost;
+
         location / {
-          proxy_pass http://flask_app;
+          proxy_pass http://flask_todo;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection 'upgrade';
+          proxy_cache_bypass $http_upgrade;
         }
       }
     }
@@ -23,16 +35,18 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-lb
+  name: nginx-todo-lb
+  labels:
+    app: nginx-todo-lb
 spec:
   selector:
     matchLabels:
-      app: nginx-lb
+      app: nginx-todo-lb
   replicas: 1
   template:
     metadata:
       labels:
-        app: nginx-lb
+        app: nginx-todo-lb
     spec:
       nodeSelector:
         kubernetes.io/hostname: k3s-master
@@ -48,12 +62,14 @@ spec:
       volumes:
       - name: nginx-config
         configMap:
-          name: nginx-config
+          name: nginx-todo-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: nginx-todo-service
+  labels:
+    app: nginx-todo-lb
 spec:
   type: NodePort
   ports:
@@ -61,6 +77,4 @@ spec:
     targetPort: 80
     nodePort: 30080
   selector:
-    app: nginx-lb
-
----
+    app: nginx-todo-lb
