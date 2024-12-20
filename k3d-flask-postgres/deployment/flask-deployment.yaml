@@ -23,7 +23,7 @@ spec:
         - name: FLASK_ENV
           value: "production"
         - name: DATABASE_URL
-          value: "postgresql://admin:dbPassword@db:5432/superdb"
+          value: "postgresql://admin:dbPassword@db:5432/todo"
 ---
 apiVersion: v1
 kind: Service
