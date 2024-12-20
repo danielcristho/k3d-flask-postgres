@@ -1,7 +1,5 @@
 # Create and manage local cluster using KIND and K3D
 
-## Kind
-
 ## Deploy Flask App using K3D
 
 ## Architecture
@@ -118,3 +116,17 @@ http://172.22.0.8082
 And acess the database.
 
 ![psql-db](https://github.com/user-attachments/assets/19afd963-3b8a-44f5-bd0b-593ae8d2ddec)
+
+Add Kubernetes Dashboard using Octant.
+
+```bash
+./octant-dashboard.sh
+```
+
+Result:
+
+![octant-ui](https://github.com/user-attachments/assets/dd040f9f-0984-4c38-ab62-cd7101f3099a)
+
+![octant ui](https://github.com/user-attachments/assets/ca0df247-1184-42b7-8f78-5f171ec0f2c5)
+
+## Kind Cases

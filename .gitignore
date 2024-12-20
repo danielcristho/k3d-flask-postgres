@@ -9,3 +9,6 @@ env
 token
 config
 k3s.yaml
+
+# octant
+octant_*/
