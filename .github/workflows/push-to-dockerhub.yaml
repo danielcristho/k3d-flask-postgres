@@ -63,7 +63,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ${{ github.workspace }}/k3s-flask-postgres/k3d-flask-postgres/flask-todo
+          context: /home/runner/work/k3d-kind-exploration/k3d-flask-postgres/flask-todo
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: danielcristh0/flask-todo:1.1
