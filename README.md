@@ -85,5 +85,31 @@ deployment.apps/nginx created
 service/nginx created
 ```
 
+Get Services.
 
+```bash
+$ kubectl get svc
 
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP                                              PORT(S)
+AGE
+db           ClusterIP      10.43.191.205   <none>                                                   5432/TCP
+21m
+flask-todo   ClusterIP      10.43.211.20    <none>                                                   5000/TCP
+21m
+kubernetes   ClusterIP      10.43.0.1       <none>                                                   443/TCP
+22m
+nginx        LoadBalancer   10.43.49.180    172.22.0.2,172.22.0.3,172.22.0.4,172.22.0.5,172.22.0.6   8082:31951/TCP
+21m
+```
+
+Try to accesing the app from browser using `LoadBalancer EXTERNAL-IP`.
+
+```sh
+http://172.22.0.8082
+```
+
+![access from browser](https://github.com/user-attachments/assets/ea3aceeb-07f6-4adc-8197-52c1f7f02dcb)
+
+And acess the database.
+
+![psql-db](https://github.com/user-attachments/assets/19afd963-3b8a-44f5-bd0b-593ae8d2ddec)
