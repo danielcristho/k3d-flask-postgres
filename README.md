@@ -1,4 +1,4 @@
-# Create and manage local cluster using KIND and K3D
+# Create and manage local cluster using KIND (Kubernetes IN Docker) and K3D (K3s IN Docker)
 
 ## Deploy Flask App using K3D
 
