@@ -23,7 +23,6 @@ update_deployment() {
         -n ${NAMESPACE} \
         --timeout=300s
 }
-
 # Function to verify deployment
 verify_deployment() {
     echo "Verifying deployment..."
