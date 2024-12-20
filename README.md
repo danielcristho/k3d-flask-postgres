@@ -64,13 +64,6 @@ NAME         SERVERS   AGENTS   LOADBALANCER
 flask-todo   1/1       4/4      true
 ```
 
-Exposing services using NodePort.
-
-```bash
-$ ./expose-service.sh
-
-```
-
 Create Deployment.
 
 ```bash
