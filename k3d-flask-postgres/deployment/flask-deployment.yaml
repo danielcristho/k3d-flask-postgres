@@ -17,6 +17,7 @@ spec:
       containers:
       - name: flask-todo
         image: danielcristh0/flask-todo:1.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         env:

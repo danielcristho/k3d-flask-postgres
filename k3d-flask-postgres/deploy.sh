@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# This script demonstrates a simple continuous deployment process
-
 # Configuration
 NAMESPACE="default"
 DEPLOYMENT_NAME="flask-todo"
@@ -16,6 +14,9 @@ update_deployment() {
     kubectl set image deployment/${DEPLOYMENT_NAME} \
         ${DEPLOYMENT_NAME}=${IMAGE_NAME}:${IMAGE_TAG} \
         -n ${NAMESPACE}
+
+    # Optionally, trigger a restart of all pods (useful if you want a fresh restart)
+    kubectl rollout restart deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}
 
     # Wait for rollout to complete
     kubectl rollout status deployment/${DEPLOYMENT_NAME} \
