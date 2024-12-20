@@ -85,6 +85,18 @@ deployment.apps/nginx created
 service/nginx created
 ```
 
+After that, make the pods are running.
+
+```bash
+$ kubectl get pods
+
+NAME                          READY   STATUS    RESTARTS      AGE
+flask-todo-795549f474-llm6q   1/1     Running   3 (25m ago)   28m
+flask-todo-795549f474-zwqbw   1/1     Running   4 (25m ago)   28m
+nginx-fd54c6fff-kstjf         1/1     Running   0             28m
+postgres-5797cf68b9-sc2sc     1/1     Running   0
+```
+
 Get Services.
 
 ```bash
