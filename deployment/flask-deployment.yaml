@@ -12,16 +12,18 @@ spec:
       labels:
         app: flask-todo
     spec:
+      nodeSelector:
+        role: app
       containers:
       - name: flask-todo
-        image: danielcristh0/flask-todo:latest
+        image: danielcristh0/flask-todo:1.1
         ports:
         - containerPort: 5000
         env:
         - name: FLASK_ENV
           value: "production"
         - name: DATABASE_URL
-          value: "postgresql://admin:dbPassword@db:5432/todo"
+          value: "postgresql://admin:dbPassword@db:5432/superdb"
 ---
 apiVersion: v1
 kind: Service

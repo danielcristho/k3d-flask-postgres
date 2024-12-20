@@ -1,4 +1,0 @@
-k3d cluster create flask-todo-cluster \
-  --servers 1 \
-  --agents 4 \
-  --port "8080:80@loadbalancer"

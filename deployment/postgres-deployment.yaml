@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:15
+        image: postgres:14
         env:
         - name: POSTGRES_USER
           value: "admin"
         - name: POSTGRES_PASSWORD
           value: "dbPassword"
         - name: POSTGRES_DB
-          value: "todo"
+          value: "superdb"
         ports:
         - containerPort: 5432
 ---
